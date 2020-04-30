@@ -9,12 +9,15 @@ const { escStr } = require('./lib/esc-uni');
 (async function main() {
 	if (argv.path) {
 		const filePath = path.normalize(argv.path);
-		const file = await fs.readFile(filePath);
-		const fileContent = file.toString('utf8');
+		const fileBuffer = await fs.readFile(filePath);
+		const fileContent = fileBuffer.toString('ascii');
 
 		const noUnicodeStr = escStr(fileContent);
-		console.log(noUnicodeStr);
-		// await fs.writeFile(filePath, noUnicodeStr);
+		if (argv.dryRun) {
+			console.log(noUnicodeStr);
+		} else {
+			await fs.writeFile(filePath, noUnicodeStr);
+		}
 	} else {
 		const [str] = argv._;
 		const noUnicodeStr = escStr(str);
