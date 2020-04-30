@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const fs = require('fs-extra');
+const { promises: fs } = require('fs');
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -8,14 +8,13 @@ const { escStr } = require('./lib/esc-uni');
 
 (async function main() {
 	if (argv.path) {
-		const { path: filePath } = argv;
-		const fileContent = await fs.readFile(path.normalize(filePath), 'ucs2');
+		const filePath = path.normalize(argv.path);
+		const file = await fs.readFile(filePath);
+		const fileContent = file.toString('utf8');
 
-		console.log(fileContent);
-
-		// const noUnicodeStr = escStr(fileContent);
-
-		// await fs.writeFile(path, noUnicodeStr);
+		const noUnicodeStr = escStr(fileContent);
+		console.log(noUnicodeStr);
+		// await fs.writeFile(filePath, noUnicodeStr);
 	} else {
 		const [str] = argv._;
 		const noUnicodeStr = escStr(str);

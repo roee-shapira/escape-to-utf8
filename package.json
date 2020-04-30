@@ -24,7 +24,6 @@
 	},
 	"homepage": "https://github.com/roee-shapira/escape-unicode#readme",
 	"dependencies": {
-		"fs-extra": "^9.0.0",
 		"minimist": "^1.2.5"
 	}
 }
