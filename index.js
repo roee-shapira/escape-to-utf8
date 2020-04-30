@@ -10,11 +10,11 @@ const { escStr } = require('./lib/esc-uni');
 	if (argv.path) {
 		const filePath = path.normalize(argv.path);
 		const fileBuffer = await fs.readFile(filePath);
-		const fileContent = fileBuffer.toString('ascii');
+		const fileContent = fileBuffer.toString('latin1');
 
 		const noUnicodeStr = escStr(fileContent);
 		if (argv.dryRun) {
-			console.log(noUnicodeStr);
+			console.log(fileContent, '\n', noUnicodeStr);
 		} else {
 			await fs.writeFile(filePath, noUnicodeStr);
 		}
