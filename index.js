@@ -1,8 +1,25 @@
 #!/usr/bin/env node
 
-const args = process.argv.slice(2);
-const [str] = args;
-const escStr = str.replace(/[^\0-~]/g, (c) => '\\u' + ('000' + c.charCodeAt().toString(16)).slice(-4));
+const fs = require('fs-extra');
+const path = require('path');
+const argv = require('minimist')(process.argv.slice(2));
 
-console.log(escStr);
-return escStr;
+const { escStr } = require('./lib/esc-uni');
+
+(async function main() {
+	if (argv.path) {
+		const { path: filePath } = argv;
+		const fileContent = await fs.readFile(path.normalize(filePath), 'ucs2');
+
+		console.log(fileContent);
+
+		// const noUnicodeStr = escStr(fileContent);
+
+		// await fs.writeFile(path, noUnicodeStr);
+	} else {
+		const [str] = argv._;
+		const noUnicodeStr = escStr(str);
+
+		console.log(noUnicodeStr);
+	}
+})();

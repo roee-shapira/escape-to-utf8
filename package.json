@@ -1,0 +1,30 @@
+{
+	"name": "escape-unicode",
+	"version": "1.0.0",
+	"description": "Escape unicode strings",
+	"main": "index.js",
+	"directories": {
+		"lib": "lib"
+	},
+	"scripts": {
+		"start": "node index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/roee-shapira/escape-unicode.git"
+	},
+	"keywords": [
+		"Unicode",
+		"Escape"
+	],
+	"author": "Roee Shapira",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/roee-shapira/escape-unicode/issues"
+	},
+	"homepage": "https://github.com/roee-shapira/escape-unicode#readme",
+	"dependencies": {
+		"fs-extra": "^9.0.0",
+		"minimist": "^1.2.5"
+	}
+}
